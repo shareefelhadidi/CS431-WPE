@@ -35,7 +35,7 @@ def removename():
             return render_template('input.html', error=error, result=result)
         else:
             error = 'invalid input name'
-    return render_template('input.html', error=error)
+    return render_template('deletepage.html', error=error)
 
 def valid_name(first_name, last_name):
     connection = sql.connect('database.db')
