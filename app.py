@@ -10,9 +10,13 @@ host = 'http://127.0.0.1:5000/'
 def index():
     return render_template('index.html')
 
+@app.route('/')
+def deletepage():
+    return render_template('deletepage.html')
 
-@app.route('/name', methods=['POST', 'GET'])
-def name():
+
+@app.route('/addname', methods=['POST', 'GET'])
+def addname():
     error = None
     if request.method == 'POST':
         result = valid_name(request.form['FirstName'], request.form['LastName'])
@@ -22,6 +26,16 @@ def name():
             error = 'invalid input name'
     return render_template('input.html', error=error)
 
+@app.route('/removename', methods=['POST', 'GET'])
+def removename():
+    error = None
+    if request.method == 'POST':
+        result = valid_name(request.form['FirstName'], request.form['LastName'])
+        if result:
+            return render_template('input.html', error=error, result=result)
+        else:
+            error = 'invalid input name'
+    return render_template('input.html', error=error)
 
 def valid_name(first_name, last_name):
     connection = sql.connect('database.db')
